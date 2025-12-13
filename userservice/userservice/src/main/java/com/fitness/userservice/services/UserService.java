@@ -5,10 +5,12 @@ import com.fitness.userservice.dto.UserResponse;
 import com.fitness.userservice.models.User;
 import com.fitness.userservice.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
@@ -58,5 +60,10 @@ public class UserService {
         userResponse.setUpdatedAt(user.getUpdatedAt());
 
         return userResponse;
+    }
+
+    public Boolean existsByUserId(String userId) {
+        log.info("Checking user existence for userId " + userId);
+        return userRepository.existsById(userId);
     }
 }
