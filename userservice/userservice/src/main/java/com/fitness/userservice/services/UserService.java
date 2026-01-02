@@ -25,6 +25,7 @@ public class UserService {
             userResponse.setLastName(existingUser.getLastName());
             userResponse.setCreatedAt(existingUser.getCreatedAt());
             userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
             return userResponse;
         }
 
@@ -33,6 +34,7 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(request.getPassword());
+        user.setKeycloakId(request.getKeyCloakId());
 
         User savedUser = userRepository.save(user);
         UserResponse userResponse = new UserResponse();
@@ -43,6 +45,7 @@ public class UserService {
         userResponse.setLastName(savedUser.getLastName());
         userResponse.setCreatedAt(savedUser.getCreatedAt());
         userResponse.setUpdatedAt(savedUser.getUpdatedAt());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
         return userResponse;
     }
 
@@ -64,6 +67,6 @@ public class UserService {
 
     public Boolean existsByUserId(String userId) {
         log.info("Checking user existence for userId " + userId);
-        return userRepository.existsById(userId);
+        return userRepository.existsByKeycloakId(userId);
     }
 }
